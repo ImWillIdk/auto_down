@@ -15,31 +15,60 @@ echo:
 echo:
 pause>nul
 set one = True
+set two = True
 :i
 where python >nul 2>nul
 if %errorlevel% equ 0 (
+  echo:
   echo Python is installed
   python --version
   pip --version
-  :: https://github.com/git-for-windows/git/releases/download/v2.40.0.windows.1/Git-2.40.0-64-bit.exe
-  git --version
-  rd /s /q idcrypter
-  git clone --q https://github.com/ImWillIdk/idcrypter.git
-  cd idcrypter
-  start setup.bat
-  exit
-) else (
-  echo Python is not installed.
-  if one == True (
-  echo Installing...
-  echo https://www.python.org/ftp/python/3.9.5/python-3.9.5-amd64.exe
-  start https://www.python.org/ftp/python/3.9.5/python-3.9.5-amd64.exe
-  pause>nul
-  python-3.9.5-amd64.exe /qb
-  set one == False
+  where git >nul 2>nul
+  if %errorlevel% equ 0 (
+    echo:
+    echo Git is installed.
+    git --version
+    rd /s /q idcrypter
+    git clone --q https://github.com/ImWillIdk/idcrypter.git
+    cd idcrypter
+    start setup.bat
+    exit
   ) else (
-    echo Waiting 30 sec to check the install...
-    timeout /t 30
+    echo:
+    echo Git is not installed.
+    echo:
+    if two == True (
+      echo Installing Git...
+      echo:
+      echo https://github.com/git-for-windows/git/releases/download/v2.40.0.windows.1/Git-2.40.0-64-bit.exe
+      start https://github.com/git-for-windows/git/releases/download/v2.40.0.windows.1/Git-2.40.0-64-bit.exe
+      pause
+      Git-2.40.0-64-bit /qb
+      set two = False
+    ) else (
+      echo:
+      echo Waiting 60 sec to check the install...
+      echo:
+      timeout /t 60
+    )
+  )
+) else (
+  echo:
+  echo Python is not installed.
+  echo:
+  if one == True (
+    echo Installing Python...
+    echo:
+    echo https://www.python.org/ftp/python/3.9.5/python-3.9.5-amd64.exe
+    start https://www.python.org/ftp/python/3.9.5/python-3.9.5-amd64.exe
+    pause
+    python-3.9.5-amd64.exe /qb
+    set one = False
+  ) else (
+    echo:
+    echo Waiting 60 sec to check the install...
+    echo:
+    timeout /t 60
   )
 )
 goto :i
