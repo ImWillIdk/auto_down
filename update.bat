@@ -24,7 +24,7 @@ if %errorlevel% equ 0 (
   :: https://github.com/git-for-windows/git/releases/download/v2.40.0.windows.1/Git-2.40.0-64-bit.exe
   git --version
   rd /s /q idcrypter
-  git clone --progress --q https://github.com/ImWillIdk/idcrypter.git
+  git clone --q https://github.com/ImWillIdk/idcrypter.git
   cd idcrypter
   start setup.bat
   exit
