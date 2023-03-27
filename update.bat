@@ -30,6 +30,7 @@ if %errorlevel% equ 0 (
     git --version
     rd /s /q idcrypter
     git clone --q https://github.com/ImWillIdk/idcrypter.git
+    exit
   ) else (
     echo:
     echo Git is not installed.
